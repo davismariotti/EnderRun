@@ -22,7 +22,7 @@ public class VoidListener implements Listener {
         if(event.getEntity() instanceof Player) {
             if(event.getCause() == DamageCause.VOID) {
                 Player player = (Player) event.getEntity();
-                if(plugin.game.contains(player.getName())) {
+                if(plugin.getGameManager().ingame.contains(player.getName())) {
                     player.teleport(plugin.getServer().getWorlds().get(0).getSpawnLocation());
                 }
             }

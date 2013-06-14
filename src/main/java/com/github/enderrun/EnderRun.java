@@ -5,32 +5,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
-import org.bukkit.World.Environment;
-import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import com.github.enderrun.commands.ERCommandExecutor;
 import com.github.enderrun.listeners.LaunchListener;
 import com.github.enderrun.listeners.TeleportListener;
 import com.github.enderrun.listeners.VoidListener;
-import com.github.enderrun.terraingen.EnderChunkGenerator;
+import com.github.enderrun.util.GameManager;
 import com.github.enderrun.util.Lang;
 
 public class EnderRun extends JavaPlugin {
 
     private static EnderRun instance;
-    public ArrayList<String> game = new ArrayList<String>();
     private World gameWorld;
     public static YamlConfiguration LANG;
     public static File LANG_FILE;
     public static Logger log;
+    
+    public GameManager manager;
 
     public void onEnable() {
         instance = this;
@@ -39,21 +36,16 @@ public class EnderRun extends JavaPlugin {
         new VoidListener(this);
         new LaunchListener(this);
         new TeleportListener(this);
-        getCommand("enderrun").setExecutor(new EnderRunCommand());
-
-        new BukkitRunnable() {
-
-            public void run() {
-                if(!new File("enderrun").exists()) {
-                    WorldCreator creator = new WorldCreator("enderrun");
-                    creator.environment(Environment.THE_END);
-                    creator.type(WorldType.NORMAL);
-                    creator.generateStructures(false);
-                    creator.generator(new EnderChunkGenerator());
-                    gameWorld = creator.createWorld();
-                }
-            }
-        }.runTaskAsynchronously(this);
+        getCommand("enderrun").setExecutor(new ERCommandExecutor());
+        manager = new GameManager(this);
+        // WorldCreator creator = new WorldCreator("enderrun");
+        // log.info(creator.name());
+        // creator.environment(Environment.THE_END);
+        // creator.type(WorldType.NORMAL);
+        // creator.generateStructures(false);
+        // creator.generator(new EnderChunkGenerator());
+        // gameWorld = creator.createWorld();
+        // log.info("Created world.");
     }
 
     public static EnderRun getInstance() {
@@ -141,5 +133,9 @@ public class EnderRun extends JavaPlugin {
      */
     public File getLangFile() {
         return LANG_FILE;
+    }
+    
+    public GameManager getGameManager() {
+        return manager;
     }
 }

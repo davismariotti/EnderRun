@@ -21,7 +21,7 @@ public class TeleportListener implements Listener {
     public void onTp(PlayerTeleportEvent event) {
         if(event.getCause() == TeleportCause.ENDER_PEARL) {
             Player player = event.getPlayer();
-            if(plugin.game.contains(player.getName())) {
+            if(plugin.getGameManager().ingame.contains(player.getName())) {
                 event.setCancelled(true);
                 player.teleport(event.getTo());
                 player.setHealth(player.getHealth() - 1);

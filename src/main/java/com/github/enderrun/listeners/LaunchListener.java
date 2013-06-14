@@ -24,7 +24,7 @@ public class LaunchListener implements Listener {
         if(event.getEntity() instanceof EnderPearl) {
             if(event.getEntity().getShooter() instanceof Player) {
                 Player player = (Player) event.getEntity().getShooter();
-                if(plugin.game.contains(player.getName())) {
+                if(plugin.getGameManager().ingame.contains(player.getName())) {
                     player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL, 1));
                 }
             }
