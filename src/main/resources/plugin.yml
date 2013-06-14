@@ -1,4 +1,10 @@
-main: info.gomeow.enderrun.EnderRun
-version: 1.0.0
+main: com.github.enderrun.EnderRun
+version: ${version}
 name: EnderRun
-load: STARTUP
+
+commands:
+  enderrun:
+    description: Generates a new EnderGen world
+    aliases: [genender]
+    permission: Endergen.Generate
+    usage: /[command]
