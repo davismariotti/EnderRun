@@ -10,7 +10,8 @@ public enum Lang {
     TITLE("title-name", "&4[&fEnderRun&4]:"),
     INVALID_ARGS("invalid-args", "&cInvalid args!"),
     MUST_BE_PLAYER("player-only", "Sorry but that can only be run by a player!"),
-    NO_PERMS("no-permissions", "&cYou don''t have permission for that!");
+    NO_PERMS("no-permissions", "&cYou don''t have permission for that!"),
+    JOIN_GAME("joined-game", "Joined game!");
 
     private String path;
     private String def;

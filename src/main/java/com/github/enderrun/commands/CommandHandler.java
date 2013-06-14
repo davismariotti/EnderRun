@@ -1,5 +1,7 @@
 package com.github.enderrun.commands;
 
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
 /**
@@ -9,6 +11,6 @@ import org.bukkit.command.CommandSender;
  */
 public interface CommandHandler {
 
-    public boolean onCommand(CommandSender sender, String[] args);
+    public boolean handle(CommandSender sender, List<String> args);
 
 }
