@@ -10,19 +10,21 @@ import org.bukkit.inventory.ItemStack;
 
 import com.github.enderrun.EnderRun;
 
-
 public class LaunchListener implements Listener {
+
     EnderRun plugin;
 
     public LaunchListener(EnderRun er) {
         this.plugin = er;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
+
     @EventHandler
     public void onLaunch(ProjectileLaunchEvent event) {
-        if (event.getEntity() instanceof EnderPearl) {
-            if (event.getEntity().getShooter() instanceof Player) {
-                Player player = (Player)event.getEntity().getShooter();
-                if (plugin.game.contains(player.getName())) {
+        if(event.getEntity() instanceof EnderPearl) {
+            if(event.getEntity().getShooter() instanceof Player) {
+                Player player = (Player) event.getEntity().getShooter();
+                if(plugin.game.contains(player.getName())) {
                     player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL, 1));
                 }
             }

@@ -1,0 +1,6 @@
+# Use & for color codes.
+# Made with love <3
+title-name: "&4[&fEnderRun&4]:"
+player-only: "Sorry but that can only be run by a player!"
+invalid-args: "&cInvalid args!"
+no-permissions: "&cYou don't have permission for that!"

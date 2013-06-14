@@ -8,10 +8,9 @@ import org.bukkit.generator.BlockPopulator;
 
 public class BeaconPopulator extends BlockPopulator {
 
-	@Override
-	public void populate(World world, Random rand, Chunk chunk) {
-		
-		
-	}
+    @Override
+    public void populate(World world, Random rand, Chunk chunk) {
+
+    }
 
 }
