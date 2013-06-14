@@ -3,7 +3,7 @@ package com.github.enderrun;
 /**
  * This is designed to allow the plugin to be localized easily.
  * Put ALL hardcoded strings here
- *
+ * TODO Add an option to load these from a file
  */
 public final class LocalizedStrings {
 	public static final String 

@@ -3,13 +3,8 @@ version: ${version}
 name: EnderRun
 
 commands:
-  endergen:
+  enderrun:
     description: Generates a new EnderGen world
     aliases: [genender]
     permission: Endergen.Generate
-    usage: /[command]
-  joinender:
-    description: Join the Ender Run Game
-    aliases: [joinenderrun]
-    permission: Endergen.Join
     usage: /[command]

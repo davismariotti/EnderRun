@@ -2,13 +2,12 @@ package com.github.enderrun;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.enderrun.commands.*;
+import com.github.enderrun.commands.EnderRunCommandExecutor;
 
 public class EnderRun extends JavaPlugin {
 
     public void onEnable() {
-        getCommand("endergen").setExecutor(new GenerateWorldCommandExecutor());
-        getCommand("joinender").setExecutor(new JoinWorldCommandExecutor());
+        getCommand("enderrun").setExecutor(new EnderRunCommandExecutor());
     }
     
 }
