@@ -1,19 +1,16 @@
 package com.github.enderrun.commands;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.github.enderrun.util.Lang;
-
 public class ERCommandExecutor implements CommandExecutor {
 
     enum Handler {
-        JOIN(new JoinCommand(), "Joins the game.");
+        JOIN(new JoinCommand(), "Joins the game."),
+        GENERATE(new GenerateCommand(), "Test Generate world");
 
         private CommandHandler handler;
         private String help;
@@ -35,13 +32,15 @@ public class ERCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0) {
+        
+    	//TODO This doesn't actually work...
+    	/*if(args.length == 0) {
             sender.sendMessage(ChatColor.GOLD + "EnderRun Help:");
             for(Handler h:Handler.values()) {
                 sender.sendMessage(ChatColor.GOLD + "/" + label + " " + h.name().toLowerCase() + " - " + h.getHelp());
             }
         } else {
-            Handler handler = Handler.valueOf(args[0]);
+            Handler handler = Handler.valueOf(args[0].toUpperCase());
             if(handler != null) {
                 List<String> argList = Arrays.asList(args);
                 if(argList.size() > 0) {
@@ -51,7 +50,9 @@ public class ERCommandExecutor implements CommandExecutor {
             } else {
                 sender.sendMessage(Lang.INVALID_ARGS.toString());
             }
-        }
+        }*/
+    	
+    	new GenerateCommand().handle(sender, new ArrayList<String>());
         return true;
     }
 

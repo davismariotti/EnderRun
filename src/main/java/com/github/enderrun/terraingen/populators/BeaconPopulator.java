@@ -1,4 +1,4 @@
-package com.github.enderrun.terraingen;
+package com.github.enderrun.terraingen.populators;
 
 import java.util.Random;
 

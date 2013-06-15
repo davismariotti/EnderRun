@@ -21,7 +21,7 @@ import com.github.enderrun.util.Lang;
 
 public class EnderRun extends JavaPlugin {
 
-    private static EnderRun instance;
+    public static EnderRun instance;
     private World gameWorld;
     public static YamlConfiguration LANG;
     public static File LANG_FILE;

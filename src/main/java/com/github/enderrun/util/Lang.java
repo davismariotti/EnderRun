@@ -11,7 +11,8 @@ public enum Lang {
     INVALID_ARGS("invalid-args", "&cInvalid args!"),
     MUST_BE_PLAYER("player-only", "Sorry but that can only be run by a player!"),
     NO_PERMS("no-permissions", "&cYou don''t have permission for that!"),
-    JOIN_GAME("joined-game", "Joined game!");
+    JOIN_GAME("joined-game", "Joined game!"),
+    WORLD_NAME("world-name", "EnderRunMap");
 
     private String path;
     private String def;
