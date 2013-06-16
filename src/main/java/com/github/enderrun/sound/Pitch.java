@@ -1,6 +1,5 @@
 package com.github.enderrun.sound;
 
-import org.bukkit.Bukkit;
 
 public enum Pitch {
 	
