@@ -8,11 +8,10 @@ import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.enderrun.commands.ERCommandExecutor;
+import com.github.enderrun.language.LanguageLoader;
 import com.github.enderrun.listeners.LaunchListener;
 import com.github.enderrun.listeners.TeleportListener;
 import com.github.enderrun.listeners.VoidListener;
-import com.github.enderrun.util.GameManager;
-import com.github.enderrun.util.LanguageLoader;
 
 public class EnderRun extends JavaPlugin {
 

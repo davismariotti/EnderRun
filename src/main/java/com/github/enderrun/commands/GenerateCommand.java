@@ -9,8 +9,8 @@ import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
 
 import com.github.enderrun.EnderRun;
+import com.github.enderrun.language.LocalizedLiteral;
 import com.github.enderrun.terraingen.EnderWorldGenerator;
-import com.github.enderrun.util.LocalizedLiteral;
 
 /**
  * Temporary until lobby is set up

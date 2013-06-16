@@ -9,7 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.github.enderrun.EnderRun;
-import com.github.enderrun.util.LocalizedLiteral;
+import com.github.enderrun.language.LocalizedLiteral;
 
 public class ERCommandExecutor implements CommandExecutor {
 
@@ -17,7 +17,8 @@ public class ERCommandExecutor implements CommandExecutor {
         JOIN(new JoinCommand(), 
         		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP),
         		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP)),
-        GENERATE(new GenerateCommand(), "generate", "Test Generate world");
+        GENERATE(new GenerateCommand(), "generate", "Test Generate world"),
+        SOUND(new SoundtrackCommand(), "sound", "Test Play Soundtrack");
 
         private CommandHandler handler;
         private String name, help;

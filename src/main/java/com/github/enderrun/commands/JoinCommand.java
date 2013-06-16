@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.github.enderrun.EnderRun;
-import com.github.enderrun.util.GameManager;
-import com.github.enderrun.util.LocalizedLiteral;
+import com.github.enderrun.GameManager;
+import com.github.enderrun.language.LocalizedLiteral;
 
 public class JoinCommand implements CommandHandler {
 

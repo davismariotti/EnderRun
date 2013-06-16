@@ -1,10 +1,9 @@
-package com.github.enderrun.util;
+package com.github.enderrun;
 
 import java.util.HashSet;
 
 import org.bukkit.entity.Player;
 
-import com.github.enderrun.EnderRun;
 
 public class GameManager {
     

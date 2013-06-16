@@ -1,4 +1,4 @@
-package com.github.enderrun.util;
+package com.github.enderrun.language;
 
 /**
  * A list of all of the localized (i.e customizable for other languages)

@@ -1,4 +1,4 @@
-package com.github.enderrun.util;
+package com.github.enderrun.language;
 
 import java.io.File;
 import java.io.IOException;
