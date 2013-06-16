@@ -5,8 +5,9 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.github.enderrun.EnderRun;
 import com.github.enderrun.util.GameManager;
-import com.github.enderrun.util.Lang;
+import com.github.enderrun.util.LocalizedLiteral;
 
 public class JoinCommand implements CommandHandler {
 
@@ -14,9 +15,11 @@ public class JoinCommand implements CommandHandler {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             GameManager.getInstance().addPlayer(player.getName());
-            player.sendMessage(Lang.JOIN_GAME.toString());
+            player.sendMessage(EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_GAME));
         } else {
-            sender.sendMessage(Lang.TITLE.toString() + Lang.MUST_BE_PLAYER);
+            sender.sendMessage(EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.TITLE) 
+            		+ " " + 
+            		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.MUST_BE_PLAYER));
         }
         return true;
     }

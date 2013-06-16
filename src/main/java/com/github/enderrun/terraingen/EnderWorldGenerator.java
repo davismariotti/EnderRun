@@ -3,8 +3,6 @@ package com.github.enderrun.terraingen;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-import com.github.enderrun.util.Lang;
-
 public class EnderWorldGenerator {
 	/*
 	 * We create an async thread to generate the terrain. 
@@ -39,10 +37,10 @@ public class EnderWorldGenerator {
     }
 
     public EnderWorldGenerator(World world) {
-        this(5, 5, 10, 4, world);
+        this(5, 5, 32, 4, world);
     }
     
-    public void startAsyncWorldGeneration() {
+    public void generateWorld() {
     	asyncGeneratorThread.start();
     }
     
@@ -55,7 +53,7 @@ public class EnderWorldGenerator {
     	for (int x = 0; x < xSize;  x++) {
     		for (int z = 0; z < zSize; z++) {
     			for (int y = 0; y < 256; y++) {
-    				Bukkit.getWorld(Lang.WORLD_NAME.getDefault()).getBlockAt(x, y, z).setTypeId(generatedWorld[x][y][z]);			
+    				this.world.getBlockAt(x, y, z).setTypeId(generatedWorld[x][y][z]);			
     			}
     		}
     	}

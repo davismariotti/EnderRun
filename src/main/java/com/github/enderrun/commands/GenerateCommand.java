@@ -8,23 +8,29 @@ import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
 
+import com.github.enderrun.EnderRun;
 import com.github.enderrun.terraingen.EnderWorldGenerator;
-import com.github.enderrun.terraingen.VoidChunkGenerator;
-import com.github.enderrun.util.Lang;
+import com.github.enderrun.util.LocalizedLiteral;
 
+/**
+ * Temporary until lobby is set up
+ */
 public class GenerateCommand implements CommandHandler {
 
 	@Override
 	public boolean handle(CommandSender sender, List<String> args) {
 
-		WorldCreator worldOptions = new WorldCreator(Lang.WORLD_NAME.getDefault());
+		String worldName = EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.WORLD_NAME);
+		WorldCreator worldOptions = new WorldCreator(worldName);
+		
 		//TODO worldOptions.generator(new VoidChunkGenerator());
 		worldOptions.environment(Environment.THE_END);
+		worldOptions.generateStructures(false);
 		Bukkit.createWorld(worldOptions);
 		
-		World world = Bukkit.getWorld(Lang.WORLD_NAME.getDefault());
+		World world = Bukkit.getWorld(worldName);
 		EnderWorldGenerator gen = new EnderWorldGenerator(world);
-		gen.startAsyncWorldGeneration();
+		gen.generateWorld();
 
 		return true;
 	}

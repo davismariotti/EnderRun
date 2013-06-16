@@ -27,7 +27,7 @@ public class AsyncTerrainGenerator implements Runnable {
 		this.seed = seed;
 
 		this.xSizeInBlocks = 16 * chunkXRadiusGenerated;
-		this.zSizeInBlocks = 50;
+		this.zSizeInBlocks = 100;
 		
 		this.generatedWorld = new byte[xSizeInBlocks][256][zSizeInBlocks];
 	}
@@ -42,13 +42,15 @@ public class AsyncTerrainGenerator implements Runnable {
 	private void generateTerrain() {
 
 		SimplexOctaveGenerator gen1 = new SimplexOctaveGenerator(this.seed, 8);
-		gen1.setScale(1 / 32.0); // how "scaled" the noise generator should be.
+		gen1.setScale(1 / (float)islandDistance);
 
 		for (int x = 0; x < xSizeInBlocks; x++) {
 			for (int z = 0; z < zSizeInBlocks; z++) {
 
 				for (int y = 64; y < 128; y++) {
-					double density = gen1.noise(x, y, z, 0.5, 0.5);
+					double density = (gen1.noise(x, y, z, 0.5, 0.5) 
+							+ gen1.noise(x + islandSizeX, y, z, 0.5, 0.5) 
+							+ gen1.noise(x, y, z + islandSizeZ, 0.5, 0.5))/3;
 					if (density > 0.0) {
 						this.generatedWorld[x][y][z] = (byte) Material.ENDER_STONE.getId();
 					}

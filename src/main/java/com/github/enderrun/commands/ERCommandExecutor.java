@@ -1,31 +1,50 @@
 package com.github.enderrun.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.github.enderrun.EnderRun;
+import com.github.enderrun.util.LocalizedLiteral;
+
 public class ERCommandExecutor implements CommandExecutor {
 
     enum Handler {
-        JOIN(new JoinCommand(), "Joins the game."),
-        GENERATE(new GenerateCommand(), "Test Generate world");
+        JOIN(new JoinCommand(), 
+        		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP),
+        		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP)),
+        GENERATE(new GenerateCommand(), "generate", "Test Generate world");
 
         private CommandHandler handler;
-        private String help;
+        private String name, help;
 
-        Handler(CommandHandler ch, String s) {
-            handler = ch;
-            help = s;
+        Handler(CommandHandler commandHandler, String commandName, String commandHelp) {
+            handler = commandHandler;
+            name = commandName;
+            help = commandHelp;
         }
 
         public CommandHandler getHandler() {
             return handler;
         }
+        
+        public String getCommandName() {
+        	return this.name;
+        }
 
         public String getHelp() {
             return help;
+        }
+        
+        public static Handler getHandlerByName(String commandName) throws UnsupportedCommandException {
+        	for (Handler h : Handler.values()) {
+        		if (h.name.equalsIgnoreCase(commandName)) return h;
+        	}
+        	throw new UnsupportedCommandException();
         }
 
     }
@@ -33,27 +52,32 @@ public class ERCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
-    	//TODO This doesn't actually work...
-    	/*if(args.length == 0) {
-            sender.sendMessage(ChatColor.GOLD + "EnderRun Help:");
-            for(Handler h:Handler.values()) {
-                sender.sendMessage(ChatColor.GOLD + "/" + label + " " + h.name().toLowerCase() + " - " + h.getHelp());
-            }
-        } else {
-            Handler handler = Handler.valueOf(args[0].toUpperCase());
-            if(handler != null) {
-                List<String> argList = Arrays.asList(args);
+    	if(args.length == 0) {    		
+    		displayHelp(sender, label);    		
+        }
+    	
+    	else {
+            try {
+                Handler handler = Handler.getHandlerByName(args[0]);
+                ArrayList<String> argList = new ArrayList<String>(Arrays.asList(args));
                 if(argList.size() > 0) {
                     argList.remove(0);
                 }
                 handler.getHandler().handle(sender, argList);
-            } else {
-                sender.sendMessage(Lang.INVALID_ARGS.toString());
+            } catch (UnsupportedCommandException e) {
+                sender.sendMessage(EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.INVALID_ARGS));
             }
-        }*/
-    	
-    	new GenerateCommand().handle(sender, new ArrayList<String>());
+        }
+
         return true;
+    }
+    
+    private void displayHelp(CommandSender sender, String command) {
+    	
+        sender.sendMessage(ChatColor.GOLD + EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.HELP_MENU));
+        for(Handler h:Handler.values()) {
+            sender.sendMessage(ChatColor.GOLD + "/" + command + " " + h.name().toLowerCase() + " - " + h.getHelp());
+        }
     }
 
 }
