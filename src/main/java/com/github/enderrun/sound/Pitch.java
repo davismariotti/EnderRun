@@ -28,7 +28,9 @@ public enum Pitch {
 	E_FLAT(21, 1.67f),
 	E(22, 1.78f),
 	F(23, 1.88f),
-	G_FLAT_HIGH(24, 2.0f);
+	G_FLAT_HIGH(24, 2.0f),
+	
+	REST(25, 0);
 	
 	private int semitone;
 	private float minecraftPitch;

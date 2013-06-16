@@ -22,7 +22,7 @@ public class Track {
 		currentAddedNoteEnd += note.getDuration();
 	}
 	
-	public void tick() {
+	public void tick() throws PlayerLeftException {
 		soundManager.play(getCurrentNote());
 		currentBeat++;
 	}

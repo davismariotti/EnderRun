@@ -15,7 +15,7 @@ import com.github.enderrun.listeners.VoidListener;
 
 public class EnderRun extends JavaPlugin {
 
-    public static EnderRun instance;
+    private static EnderRun instance;
     private World gameWorld;
     public LanguageLoader languageLoader;
     
