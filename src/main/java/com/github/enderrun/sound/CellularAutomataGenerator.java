@@ -8,11 +8,15 @@ import com.github.enderrun.EnderRun;
 
 public class CellularAutomataGenerator {
 	
+	private static final int NUMBER_OF_SEMITONES = 6;
 	private ArrayList<Cell> cells = new ArrayList<Cell>();
 	private int[][] cellPositions; //for detecting inter-cell-collisions
+	private int maxX, maxY;
 
 	public CellularAutomataGenerator(long seed, int maxX, int maxY, int initialCells) {
 		Random rand = new Random(seed);
+		this.maxX = maxX;
+		this.maxY = maxY;
 		cellPositions = new int[maxX][maxY];
 		for (int i = 0; i < initialCells; i++) {
 			try {
@@ -33,7 +37,11 @@ public class CellularAutomataGenerator {
 		for (Cell c : cells) {
 			if (c.update(cellPositions)) {
 				//if there is a colission on the wall
-				list.add((c.x + c.y)%8);
+				int semitone = (c.x + c.y)%NUMBER_OF_SEMITONES;
+				/*if (c.x == 0 || c.x == maxX) semitone = c.x%NUMBER_OF_SEMITONES;
+				else if (c.y == 0 || c.y == maxY) semitone = c.y%NUMBER_OF_SEMITONES;
+				else semitone = (c.y*c.x)%NUMBER_OF_SEMITONES;*/
+				list.add(semitone);
 			}
 		}
 		return list;

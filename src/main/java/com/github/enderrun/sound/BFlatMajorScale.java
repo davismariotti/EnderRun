@@ -1,6 +1,6 @@
 package com.github.enderrun.sound;
 
-public enum BFlatScale {
+public enum BFlatMajorScale {
 
 	B_FLAT_LOW(0),
 	C(1),
@@ -14,7 +14,7 @@ public enum BFlatScale {
 	
 	private final int tone;
 	
-	BFlatScale(int tone) {
+	BFlatMajorScale(int tone) {
 		this.tone = tone;
 	}
 	
@@ -22,11 +22,11 @@ public enum BFlatScale {
 		return tone;
 	}
 	
-	public static BFlatScale getByPositionOnScale(int tone) {
-		for (BFlatScale note : BFlatScale.values()) {
+	public static BFlatMajorScale getByPositionOnScale(int tone) {
+		for (BFlatMajorScale note : BFlatMajorScale.values()) {
 			if (note.getPositionOnScale() == tone) return note;
 		}
-		return BFlatScale.REST;
+		return BFlatMajorScale.REST;
 	}
 	
 	public Pitch getAsTone() {

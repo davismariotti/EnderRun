@@ -55,7 +55,7 @@ public class Cell {
 		if (cellPositions[newX][newY] == 1) {
 			//we hit another cell
 			rotateDirection();
-			return true;
+			return false;
 		}
 		
 		cellPositions[x][y] = 0;

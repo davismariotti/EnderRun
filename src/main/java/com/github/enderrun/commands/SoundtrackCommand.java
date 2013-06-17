@@ -13,7 +13,7 @@ public class SoundtrackCommand implements CommandHandler {
 	@Override
 	public boolean handle(CommandSender sender, List<String> args) {
 		
-		SongGenerator.generate(((Player)sender).getName(), 20).play();
+		SongGenerator.generate(((Player)sender).getName(), Integer.parseInt(args.get(0)), Integer.parseInt(args.get(1))).play();
 		return true;
 	}
 

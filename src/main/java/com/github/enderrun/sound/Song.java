@@ -48,6 +48,10 @@ public class Song {
 		}		
 	};
 	
+	public Song(int bpm) {
+		this.bpm = bpm;
+	}
+	
 	public void play() {
 		EnderRun.getInstance().getLogger().log(Level.INFO, "Playing song");
 		

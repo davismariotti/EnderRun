@@ -4,11 +4,40 @@ import java.util.ArrayList;
 
 public class SongGenerator {
 
-	public static Song generate(String playername, int length) {
-		Song song = new Song();
+	public static Song generate(String playername, int bpm, int length) {
+		Song song = new Song(bpm);
 		PlayerSoundManager man = new PlayerSoundManager(playername);
 		
-		Track[] tracks = new Track[30];
+		long seed = System.currentTimeMillis();
+		CellularAutomataGenerator gen = new CellularAutomataGenerator(seed, 9, 9, 5);
+		
+		Track[] tracks = new Track[10];
+		
+		for (int n = 0; n < length; n++) {
+			
+			ArrayList<Integer> collisions = gen.get();
+			
+			for (int i = 0; i < tracks.length; i++) {
+				if (tracks[i] == null) tracks[i] = new Track(man);
+				if (i < collisions.size()) {
+					tracks[i].addNote(new Note(1, 1, BFlatMajorScale.getByPositionOnScale(collisions.get(i)).getAsTone(), Instrument.PIANO));
+				}
+				else {
+					tracks[i].addNote(new Note(1, 1, Pitch.REST, Instrument.PIANO));
+				}
+			}
+		}
+		
+		for (Track t : tracks) {
+			song.addTrack(t);
+		}
+		return song;
+	}
+	
+}
+
+/*
+Track[] tracks = new Track[30];
 		
 		CellularAutomataGenerator gen = new CellularAutomataGenerator(System.currentTimeMillis(), 19, 19, 40);
 		
@@ -35,6 +64,4 @@ public class SongGenerator {
 		
 		song.bpm = 150;
 		return song;
-	}
-	
-}
+*/
