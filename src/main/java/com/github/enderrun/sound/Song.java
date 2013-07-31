@@ -1,6 +1,7 @@
 package com.github.enderrun.sound;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -63,5 +64,9 @@ public class Song {
 	
 	public void addTrack(Track track) {
 		tracks.add(track);
+	}
+	
+	public void addTracks(List<Track> tracks) {
+		for (Track track : tracks) addTrack(track);
 	}
 }

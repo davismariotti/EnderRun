@@ -8,13 +8,20 @@ public enum LocalizedLiteral {
 	TITLE("title-name", "&4[&fEnderRun&4]:"),
 	INVALID_ARGS("invalid-args","&cInvalid args!"), 
 	MUST_BE_PLAYER("player-only","Sorry but that can only be run by a player!"), 
-	NO_PERMS("no-permissions", "&cYou don''t have permission for that!"), 
-	JOIN_GAME("joined-game", "Joined game!"), 
+	NO_PERMS("no-permissions", "&cYou don''t have permission for that!"),	 
 	WORLD_NAME("world-name", "EnderRunMap"),
-
-	// Help menu items
+	
+	//Game lobby messages
+	JOINED_GAME("joined-game", "Joined game!"),
+	JOINED_NEW_GAME("joined-new-game", "You're the first person in the new game!"),
+	GAME_IN_PROGRESS("game-in-progress", "A game is already in progress!"),
+	GAME_FINISHED("game-finished", "This game is finished."),
+	GAME_BEGUN("game-begun", "The game has begun!"),
+	
+	// Help menu messages
 	HELP_MENU("help-menu", "EnderRun Help:"), 
-	JOIN_COMMAND_HELP("join-command", "Joins a game");
+	JOIN_COMMAND_HELP("join-command-help", "Joins a game"),
+	BEGIN_COMMAND_HELP("begin-command-help", "Starts a game, closing the lobby");
 
 	private String path;
 	private String defaultValue;

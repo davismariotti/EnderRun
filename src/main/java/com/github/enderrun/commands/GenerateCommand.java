@@ -2,36 +2,22 @@ package com.github.enderrun.commands;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.World.Environment;
-import org.bukkit.WorldCreator;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import com.github.enderrun.EnderRun;
-import com.github.enderrun.language.LocalizedLiteral;
 import com.github.enderrun.terraingen.EnderWorldGenerator;
 
-/**
- * Temporary until lobby is set up
- */
-public class GenerateCommand implements CommandHandler {
+public class GenerateCommand implements CommandHandler{
 
 	@Override
 	public boolean handle(CommandSender sender, List<String> args) {
-
-		String worldName = EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.WORLD_NAME);
-		WorldCreator worldOptions = new WorldCreator(worldName);
-		
-		//TODO worldOptions.generator(new VoidChunkGenerator());
-		worldOptions.environment(Environment.THE_END);
-		worldOptions.generateStructures(false);
-		Bukkit.createWorld(worldOptions);
-		
-		World world = Bukkit.getWorld(worldName);
-		EnderWorldGenerator gen = new EnderWorldGenerator(world);
+		EnderWorldGenerator gen = new EnderWorldGenerator(EnderRun.getInstance().gameWorld);
 		gen.generateWorld();
-
+		
+		((Player) sender).teleport(new Location(EnderRun.getInstance().gameWorld, 0, 68, 0));
+		
 		return true;
 	}
 

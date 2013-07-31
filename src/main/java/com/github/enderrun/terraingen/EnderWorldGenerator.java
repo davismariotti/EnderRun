@@ -14,7 +14,7 @@ public class EnderWorldGenerator {
 	 */
     private final AsyncTerrainGenerator asyncTerrainGenerator;
     private final Thread asyncGeneratorThread;
-    private World world;
+    public final World world;
 
     /**
      * 
@@ -31,6 +31,7 @@ public class EnderWorldGenerator {
             int islandDistance, int chunkXRadiusGenerated, World world) {
     	
     	this.world = world;
+    	
         this.asyncTerrainGenerator = new AsyncTerrainGenerator(islandSizeX, islandSizeZ,
             islandDistance, chunkXRadiusGenerated, this, this.world.getSeed());
         this.asyncGeneratorThread = new Thread(this.asyncTerrainGenerator);
@@ -48,17 +49,18 @@ public class EnderWorldGenerator {
     	
     	//TODO Set this up as a recuring task, so that it doesn't slow down the server
     	//Also, we may want to use nms code here
-    	Bukkit.broadcastMessage("Done generating, now we copy it");
+    	Bukkit.broadcastMessage("Done generating world. Copying it into the end");
     	
     	for (int x = 0; x < xSize;  x++) {
     		for (int z = 0; z < zSize; z++) {
     			for (int y = 0; y < 256; y++) {
+    				this.world.getBlockAt(x, y, z).getChunk().load(true);
     				this.world.getBlockAt(x, y, z).setTypeId(generatedWorld[x][y][z]);			
     			}
     		}
     	}
     	
-    	Bukkit.broadcastMessage("Done everything");
+    	Bukkit.broadcastMessage("Enderrun world is ready");
     }
     
 }

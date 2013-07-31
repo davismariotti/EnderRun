@@ -1,7 +1,12 @@
 package com.github.enderrun.terraingen;
 
+import java.util.concurrent.Callable;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.util.noise.SimplexOctaveGenerator;
+
+import com.github.enderrun.EnderRun;
 
 /**
  * An async thread that generates the terrain, then notifies the main thread, in
@@ -35,8 +40,15 @@ public class AsyncTerrainGenerator implements Runnable {
 	@Override
 	public void run() {
 		generateTerrain();
-		mainThreadGenerator.notifyAsyncThreadComplete(generatedWorld,
-				xSizeInBlocks, zSizeInBlocks);
+		Bukkit.getScheduler().callSyncMethod(EnderRun.getInstance(), new Callable<Void>() {
+			@Override
+			public Void call() throws Exception {
+				mainThreadGenerator.notifyAsyncThreadComplete(generatedWorld,
+						xSizeInBlocks, zSizeInBlocks);
+				return null;
+			}
+			
+		});
 	}
 
 	private void generateTerrain() {
@@ -46,15 +58,16 @@ public class AsyncTerrainGenerator implements Runnable {
 
 		for (int x = 0; x < xSizeInBlocks; x++) {
 			for (int z = 0; z < zSizeInBlocks; z++) {
-
-				for (int y = 64; y < 128; y++) {
-					double density = (gen1.noise(x, y, z, 0.5, 0.5) 
-							+ gen1.noise(x + islandSizeX, y, z, 0.5, 0.5) 
-							+ gen1.noise(x, y, z + islandSizeZ, 0.5, 0.5))/3;
-					if (density > 0.0) {
-						this.generatedWorld[x][y][z] = (byte) Material.ENDER_STONE.getId();
-					}
+				double density = gen1.noise(x, z, 0.5, 0.5);
+				
+				if (density > 0.0) {
+					this.generatedWorld[x][64][z] = (byte) Material.ENDER_STONE.getId();
 				}
+				
+				else {
+					this.generatedWorld[x][64][z] = (byte) Material.LAVA.getId();
+				}
+				
 			}
 		}
 	}

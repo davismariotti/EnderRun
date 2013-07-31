@@ -15,6 +15,6 @@ public class VoidChunkGenerator extends ChunkGenerator {
 	public byte[][] generateBlockSections(World world, Random rand, int ChunkX,
 			int ChunkZ, BiomeGrid biome) {
 
-		return null;
+		return new byte[16][];
 	}
 }

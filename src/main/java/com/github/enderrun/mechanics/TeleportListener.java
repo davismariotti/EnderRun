@@ -1,4 +1,4 @@
-package com.github.enderrun.listeners;
+package com.github.enderrun.mechanics;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.github.enderrun.EnderRun;
+import com.github.enderrun.GameManager;
 
 public class TeleportListener implements Listener {
 
@@ -21,7 +22,7 @@ public class TeleportListener implements Listener {
     public void onTp(PlayerTeleportEvent event) {
         if(event.getCause() == TeleportCause.ENDER_PEARL) {
             Player player = event.getPlayer();
-            if(plugin.getGameManager().ingame.contains(player.getName())) {
+            if(GameManager.getInstance().currentGame.players.containsKey(player.getName())) {
                 event.setCancelled(true);
                 player.teleport(event.getTo());
                 player.setHealth(player.getHealth() - 1);

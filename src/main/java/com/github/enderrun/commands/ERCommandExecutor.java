@@ -15,10 +15,14 @@ public class ERCommandExecutor implements CommandExecutor {
 
     enum Handler {
         JOIN(new JoinCommand(), 
-        		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP),
+        		"join",
         		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.JOIN_COMMAND_HELP)),
-        GENERATE(new GenerateCommand(), "generate", "Test Generate world"),
-        SOUND(new SoundtrackCommand(), "sound", "Test Play Soundtrack");
+        BEGIN(new BeginCommand(), 
+        		"begin",
+        		EnderRun.getInstance().languageLoader.getValue(LocalizedLiteral.BEGIN_COMMAND_HELP)),
+        GENERATE(new GenerateCommand(), 
+        		"generate",
+        		"generate the world (testing)");
 
         private CommandHandler handler;
         private String name, help;
