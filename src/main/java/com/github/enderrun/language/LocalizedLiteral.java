@@ -15,7 +15,8 @@ public enum LocalizedLiteral {
 	JOINED_GAME("joined-game", "Joined game!"),
 	JOINED_NEW_GAME("joined-new-game", "You're the first person in the new game!"),
 	GAME_IN_PROGRESS("game-in-progress", "A game is already in progress!"),
-	GAME_FINISHED("game-finished", "This game is finished."),
+	//Uses format string to store player
+	GAME_FINISHED("game-finished", "This game is finished. The winner is %s."),
 	GAME_BEGUN("game-begun", "The game has begun!"),
 	
 	// Help menu messages

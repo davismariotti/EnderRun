@@ -15,7 +15,7 @@ import com.github.enderrun.EnderRun;
  */
 public class AsyncTerrainGenerator implements Runnable {
 
-	private volatile byte[][][] generatedWorld;
+	private volatile int[][][] generatedWorld;
 
 	private final int islandSizeX, islandSizeZ, islandDistance, xSizeInBlocks, zSizeInBlocks;
 	private final long seed;
@@ -23,7 +23,7 @@ public class AsyncTerrainGenerator implements Runnable {
 	private EnderWorldGenerator mainThreadGenerator;
 
 	public AsyncTerrainGenerator(int islandSizeX, int islandSizeZ,
-			int islandDistance, int chunkXRadiusGenerated,
+			int islandDistance, int generatedXSize, int generatedZSize,
 			EnderWorldGenerator generator, long seed) {
 		this.islandSizeX = islandSizeX;
 		this.islandSizeZ = islandSizeZ;
@@ -31,10 +31,10 @@ public class AsyncTerrainGenerator implements Runnable {
 		this.mainThreadGenerator = generator;
 		this.seed = seed;
 
-		this.xSizeInBlocks = 16 * chunkXRadiusGenerated;
-		this.zSizeInBlocks = 100;
+		this.xSizeInBlocks = generatedXSize;
+		this.zSizeInBlocks = generatedXSize;
 		
-		this.generatedWorld = new byte[xSizeInBlocks][256][zSizeInBlocks];
+		this.generatedWorld = new int[xSizeInBlocks][256][zSizeInBlocks];
 	}
 
 	@Override
@@ -60,16 +60,24 @@ public class AsyncTerrainGenerator implements Runnable {
 			for (int z = 0; z < zSizeInBlocks; z++) {
 				double density = gen1.noise(x, z, 0.5, 0.5);
 				
-				if (density > 0.0) {
-					this.generatedWorld[x][64][z] = (byte) Material.ENDER_STONE.getId();
+				if (density > -0.2) {
+					this.generatedWorld[x][64][z] = Material.ENDER_STONE.getId();
 				}
 				
 				else {
-					this.generatedWorld[x][64][z] = (byte) Material.LAVA.getId();
+					this.generatedWorld[x][64][z] = Material.AIR.getId();
 				}
 				
 			}
 		}
+		
+		this.generatedWorld[0][64][0] = Material.ENDER_STONE.getId();
+		this.generatedWorld[1][64][0] = Material.ENDER_STONE.getId();
+		this.generatedWorld[0][64][1] = Material.ENDER_STONE.getId();
+		this.generatedWorld[1][64][1] = Material.ENDER_STONE.getId();
+		
+		this.generatedWorld[xSizeInBlocks-1][64][zSizeInBlocks-1] = Material.ENDER_STONE.getId();
+		this.generatedWorld[xSizeInBlocks-1][65][zSizeInBlocks-1] = Material.BEACON.getId();
 	}
 
 }

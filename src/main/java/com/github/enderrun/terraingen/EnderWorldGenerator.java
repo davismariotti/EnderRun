@@ -28,24 +28,24 @@ public class EnderWorldGenerator {
      * The number of chunks outward (along x) the generator will generate from (0,0)
      */
     public EnderWorldGenerator(int islandSizeX, int islandSizeZ,
-            int islandDistance, int chunkXRadiusGenerated, World world) {
+            int islandDistance, int generatedXSize, int generatedYSize, World world) {
     	
     	this.world = world;
     	
         this.asyncTerrainGenerator = new AsyncTerrainGenerator(islandSizeX, islandSizeZ,
-            islandDistance, chunkXRadiusGenerated, this, this.world.getSeed());
+            islandDistance, generatedXSize, generatedYSize, this, this.world.getSeed());
         this.asyncGeneratorThread = new Thread(this.asyncTerrainGenerator);
     }
 
     public EnderWorldGenerator(World world) {
-        this(5, 5, 32, 4, world);
+        this(5, 5, 32, 40, 20, world);
     }
     
     public void generateWorld() {
     	asyncGeneratorThread.start();
     }
     
-    public synchronized void notifyAsyncThreadComplete(byte[][][] generatedWorld, int xSize, int zSize) {
+    public synchronized void notifyAsyncThreadComplete(int[][][] generatedWorld, int xSize, int zSize) {
     	
     	//TODO Set this up as a recuring task, so that it doesn't slow down the server
     	//Also, we may want to use nms code here
@@ -54,8 +54,14 @@ public class EnderWorldGenerator {
     	for (int x = 0; x < xSize;  x++) {
     		for (int z = 0; z < zSize; z++) {
     			for (int y = 0; y < 256; y++) {
-    				this.world.getBlockAt(x, y, z).getChunk().load(true);
-    				this.world.getBlockAt(x, y, z).setTypeId(generatedWorld[x][y][z]);			
+    				try {
+    					this.world.getBlockAt(x, y, z).getChunk().load(true);
+    					this.world.getBlockAt(x, y, z).setTypeId(generatedWorld[x][y][z]);
+    				}
+    				catch (Exception e) {
+    					e.printStackTrace();
+    					continue;
+    				}
     			}
     		}
     	}

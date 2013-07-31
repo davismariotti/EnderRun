@@ -5,9 +5,10 @@ import com.github.enderrun.EnderRun;
 public class Mechanics {
 
 	public static void loadMechanics(EnderRun enderRun) {
-        new VoidListener(enderRun);
+        new DeathListener(enderRun);
         new LaunchListener(enderRun);
-        new TeleportListener(enderRun);		
+        new TeleportListener(enderRun);
+        new WinListener(enderRun);
 	}
 
 }
